@@ -1,4 +1,4 @@
-package com.example.community;
+package efub.assignment.community;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
