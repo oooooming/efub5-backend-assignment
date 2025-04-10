@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
-public class ErrorResponseDto { // 세미나 실습에선 전역 에러 핸들러 만들었었는데 이 과제에도 추가하는 게 좋을까?
+public class ErrorResponseDto {
 
     private LocalDateTime timestamp;
     private int status;
