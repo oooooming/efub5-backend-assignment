@@ -42,7 +42,7 @@ public class MemberService {
     @Transactional
     // 닉네임 수정
     public MemberResponseDto updateMember(Long memberId, MemberRequestDto memberRequestDto) {
-        Member member = memberRepository.findBymemberId(memberId)
+        Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
 
         member.updateNickname(memberRequestDto.getNickname());
@@ -53,7 +53,7 @@ public class MemberService {
     @Transactional
     // 회원 탈퇴 (상태 변경)
     public void deleteMember(Long memberId) {
-        Member member = memberRepository.findBymemberId(memberId)
+        Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
 
         member.changeStatus(MemberStatus.DEACTIVATED);

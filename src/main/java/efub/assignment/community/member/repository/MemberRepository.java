@@ -11,5 +11,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 학번 중복검사를 위한 쿼리
     boolean existsByEmail(String email);
     // 멤버 ID로 조회
-    Optional<Member> findBymemberId(Long memberId);
+    Optional<Member> findByMemberId(Long memberId);
 }

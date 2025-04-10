@@ -42,6 +42,6 @@ public class MemberController {
     @PatchMapping("/{memberId}")
     public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId) {
         memberService.deleteMember(memberId);
-        return ResponseEntity.ok("삭제가 완료되었습니다.");
+        return ResponseEntity.ok("성공적으로 탈퇴가 완료되었습니다.");
     }
 }
