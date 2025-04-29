@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record PostCreateRequestDto(@NotNull Long boardId,
-                                  boolean anonymous,
+                                  @NotNull boolean anonymous,
                                   @NotNull Long authorId,
                                   @NotBlank String content) {
     public Post toEntity(Board board, Member author) {

@@ -21,13 +21,13 @@ public class Post extends BaseEntity {
     private Long postId;
 
     // 게시판
-    @ManyToOne
-    @JoinColumn(name = "boardId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
     // 작성자
-    @ManyToOne
-    @JoinColumn(name = "memberId", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member author;
 
     // 익명

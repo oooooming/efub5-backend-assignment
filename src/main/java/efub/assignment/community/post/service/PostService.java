@@ -20,7 +20,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class PostService {
 
     private final PostRepository postRepository;
@@ -28,7 +27,8 @@ public class PostService {
     private final MemberRepository memberRepository;
 
     // 게시글 생성
-    public PostResponseDto createPost(@Valid PostCreateRequestDto postCreateRequestDto) {
+    @Transactional
+    public PostResponseDto createPost(PostCreateRequestDto postCreateRequestDto) {
         Board board = boardRepository.findByBoardId(postCreateRequestDto.boardId())
                 .orElseThrow(() -> new RuntimeException("Board not found"));
         Member author = memberRepository.findByMemberId(postCreateRequestDto.authorId())
@@ -39,7 +39,8 @@ public class PostService {
     }
 
     // 게시글 수정
-    public PostResponseDto updateContent(@PathVariable Long postId, @Valid UpdateContentDto updateContentDto) {
+    @Transactional
+    public PostResponseDto updateContent(Long postId, UpdateContentDto updateContentDto) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Post not found"));
         String newContent = updateContentDto.getContent();
@@ -49,14 +50,16 @@ public class PostService {
     }
 
     // 게시글 상세 내용 조회
-    public PostResponseDto getPost(@PathVariable Long postId) {
+    @Transactional(readOnly = true)
+    public PostResponseDto getPost(Long postId) {
         Post post = postRepository.findByPostId(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Post not found"));
         return PostResponseDto.from(post);
     }
 
     // 게시글 목록 조회
-    public PostListResponseDto getPostList(@PathVariable Long boardId) {
+    @Transactional(readOnly = true)
+    public PostListResponseDto getPostList(Long boardId) {
         Board board = boardRepository.findByBoardId(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));
         List<Post> postList = postRepository.findAllByBoard(board);
@@ -64,7 +67,8 @@ public class PostService {
     }
 
     // 게시글 삭제
-    public void deletePost(@PathVariable Long postId) {
+    @Transactional
+    public void deletePost(Long postId) {
         postRepository.deleteByPostId(postId);
     }
 }
