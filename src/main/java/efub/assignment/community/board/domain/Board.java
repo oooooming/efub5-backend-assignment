@@ -21,11 +21,11 @@ public class Board extends BaseEntity {
 
     // 게시판 소유자
     @ManyToOne
-    @JoinColumn (name = "memberId", nullable = false)
+    @JoinColumn (name = "member_id", nullable = false)
     private Member owner;
 
     // 게시판 이름
-    @Column
+    @Column (nullable = false)
     private String name;
 
     // 게시판 설명

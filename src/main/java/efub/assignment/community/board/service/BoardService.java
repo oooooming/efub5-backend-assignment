@@ -26,8 +26,8 @@ public class BoardService {
         Long ownerId = boardCreateRequestDto.ownerId();
         Member owner = memberRepository.findByMemberId(ownerId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
-        Board Board = boardCreateRequestDto.toEntity(owner);
-        Board savedBoard = boardRepository.save(Board);
+        Board board = boardCreateRequestDto.toEntity(owner);
+        Board savedBoard = boardRepository.save(board);
         return BoardResponseDto.from(savedBoard);
     }
 
@@ -41,7 +41,7 @@ public class BoardService {
 
     // 게시판 소유자 수정
     @Transactional
-    public BoardResponseDto updateOwner(Long boardId, @Valid @RequestBody UpdateOwnerRequestDto updateOwnerRequestDto) {
+    public BoardResponseDto updateOwner(Long boardId, UpdateOwnerRequestDto updateOwnerRequestDto) {
         Board board = boardRepository.findByBoardId(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("Board not found"));
         Member newOwner = memberRepository.findByMemberId(updateOwnerRequestDto.getOwnerId())

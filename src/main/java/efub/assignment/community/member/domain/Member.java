@@ -1,5 +1,6 @@
 package efub.assignment.community.member.domain;
 
+import efub.assignment.community.comment.domain.Comment;
 import efub.assignment.community.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,6 +46,9 @@ public class Member extends BaseEntity {
     // 회원 상태
     @Enumerated(EnumType.STRING)
     private MemberStatus status = MemberStatus.ACTIVE;
+
+    @OneToMany(mappedBy = "commenter", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
     @Builder
     public Member(String studentId, String university, String nickname, String email, String password) {

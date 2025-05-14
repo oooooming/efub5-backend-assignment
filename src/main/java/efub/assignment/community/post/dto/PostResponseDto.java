@@ -21,7 +21,7 @@ public class PostResponseDto {
         return PostResponseDto.builder()
                 .postId(post.getPostId())
                 .boardId(post.getBoard().getBoardId())
-                .authorId(post.getAuthor().getMemberId())
+                .authorId(post.isAnonymous() ? null : post.getAuthor().getMemberId())
                 .anonymous(post.isAnonymous())
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
