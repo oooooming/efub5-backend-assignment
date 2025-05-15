@@ -1,4 +1,4 @@
-package efub.assignment.community.comment.dto;
+package efub.assignment.community.comment.dto.response;
 
 import efub.assignment.community.comment.domain.Comment;
 import lombok.Builder;

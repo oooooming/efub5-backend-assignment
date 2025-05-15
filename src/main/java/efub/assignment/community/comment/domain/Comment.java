@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -28,6 +31,9 @@ public class Comment extends BaseEntity {
 
     @Column(nullable = false)
     private String content;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentHeart> commentHeartList = new ArrayList<>();
 
     @Builder
     public Comment(Post post, Member commenter, String content) {

@@ -1,9 +1,8 @@
 package efub.assignment.community.board.controller;
 
-import efub.assignment.community.board.dto.BoardCreateRequestDto;
-import efub.assignment.community.board.dto.BoardResponseDto;
-import efub.assignment.community.post.dto.PostListResponseDto;
-import efub.assignment.community.board.dto.UpdateOwnerRequestDto;
+import efub.assignment.community.board.dto.request.BoardCreateRequestDto;
+import efub.assignment.community.board.dto.response.BoardResponseDto;
+import efub.assignment.community.board.dto.request.UpdateOwnerRequestDto;
 import efub.assignment.community.board.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

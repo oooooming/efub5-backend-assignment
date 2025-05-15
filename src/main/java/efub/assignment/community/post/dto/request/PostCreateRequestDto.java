@@ -1,4 +1,4 @@
-package efub.assignment.community.post.dto;
+package efub.assignment.community.post.dto.request;
 
 import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.member.domain.Member;

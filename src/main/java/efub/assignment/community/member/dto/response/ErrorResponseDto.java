@@ -1,4 +1,4 @@
-package efub.assignment.community.member.dto;
+package efub.assignment.community.member.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

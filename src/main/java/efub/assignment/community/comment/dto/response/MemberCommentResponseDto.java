@@ -1,4 +1,4 @@
-package efub.assignment.community.comment.dto;
+package efub.assignment.community.comment.dto.response;
 
 import efub.assignment.community.comment.domain.Comment;
 import lombok.AccessLevel;
@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PostCommentResponseDto {
+public class MemberCommentResponseDto {
 
-    private final Long postId;
+    private final Long memberId;
     private final List<CommentResponseDto> commentList;
     private final Long count;
 
-    public static PostCommentResponseDto from(Long postId, List<Comment> commentList) {
-        return PostCommentResponseDto.builder()
-                .postId(postId)
+    public static MemberCommentResponseDto from(Long memberId, List<Comment> commentList) {
+        return MemberCommentResponseDto.builder()
+                .memberId(memberId)
                 .commentList(commentList.stream().map(CommentResponseDto::from).collect(Collectors.toList()))
                 .count((long) commentList.size())
                 .build();

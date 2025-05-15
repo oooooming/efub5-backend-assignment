@@ -1,17 +1,15 @@
 package efub.assignment.community.board.service;
 
 import efub.assignment.community.board.domain.Board;
-import efub.assignment.community.board.dto.BoardCreateRequestDto;
-import efub.assignment.community.board.dto.BoardResponseDto;
-import efub.assignment.community.board.dto.UpdateOwnerRequestDto;
+import efub.assignment.community.board.dto.request.BoardCreateRequestDto;
+import efub.assignment.community.board.dto.response.BoardResponseDto;
+import efub.assignment.community.board.dto.request.UpdateOwnerRequestDto;
 import efub.assignment.community.board.repository.BoardRepository;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor

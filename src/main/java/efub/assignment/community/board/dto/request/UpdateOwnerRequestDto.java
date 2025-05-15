@@ -1,4 +1,4 @@
-package efub.assignment.community.board.dto;
+package efub.assignment.community.board.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
