@@ -1,10 +1,11 @@
 package efub.assignment.community.post.controller;
 
-import efub.assignment.community.post.dto.PostCreateRequestDto;
-import efub.assignment.community.post.dto.PostListResponseDto;
-import efub.assignment.community.post.dto.PostResponseDto;
-import efub.assignment.community.post.dto.UpdateContentDto;
-import efub.assignment.community.post.repository.PostRepository;
+import efub.assignment.community.comment.dto.response.PostCommentResponseDto;
+import efub.assignment.community.comment.service.CommentService;
+import efub.assignment.community.post.dto.request.PostCreateRequestDto;
+import efub.assignment.community.post.dto.response.PostListResponseDto;
+import efub.assignment.community.post.dto.response.PostResponseDto;
+import efub.assignment.community.post.dto.request.UpdateContentDto;
 import efub.assignment.community.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
-    private final PostRepository postRepository;
+    private final CommentService commentService;
 
     // 게시글 생성
     @PostMapping
@@ -49,7 +50,7 @@ public class PostController {
     }
 
     // 게시글 삭제
-    @DeleteMapping("{postId}")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);
         return ResponseEntity.ok("성공적으로 게시글 삭제가 완료되었습니다.");

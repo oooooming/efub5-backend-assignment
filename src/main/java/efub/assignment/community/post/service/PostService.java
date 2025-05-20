@@ -5,16 +5,14 @@ import efub.assignment.community.board.repository.BoardRepository;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
 import efub.assignment.community.post.domain.Post;
-import efub.assignment.community.post.dto.PostCreateRequestDto;
-import efub.assignment.community.post.dto.PostListResponseDto;
-import efub.assignment.community.post.dto.PostResponseDto;
-import efub.assignment.community.post.dto.UpdateContentDto;
+import efub.assignment.community.post.dto.request.PostCreateRequestDto;
+import efub.assignment.community.post.dto.response.PostListResponseDto;
+import efub.assignment.community.post.dto.response.PostResponseDto;
+import efub.assignment.community.post.dto.request.UpdateContentDto;
 import efub.assignment.community.post.repository.PostRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

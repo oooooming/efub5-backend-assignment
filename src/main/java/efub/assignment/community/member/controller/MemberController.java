@@ -1,7 +1,9 @@
 package efub.assignment.community.member.controller;
 
-import efub.assignment.community.member.dto.MemberRequestDto;
-import efub.assignment.community.member.dto.MemberResponseDto;
+import efub.assignment.community.comment.dto.response.MemberCommentResponseDto;
+import efub.assignment.community.comment.service.CommentService;
+import efub.assignment.community.member.dto.request.MemberRequestDto;
+import efub.assignment.community.member.dto.response.MemberResponseDto;
 import efub.assignment.community.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CommentService commentService;
 
     // 회원 생성 POST /members
     @PostMapping
@@ -43,5 +46,11 @@ public class MemberController {
     public ResponseEntity<String> deleteMember(@PathVariable("memberId") Long memberId) {
         memberService.deleteMember(memberId);
         return ResponseEntity.ok("성공적으로 탈퇴가 완료되었습니다.");
+    }
+
+    // 작성자별 댓글 조회
+    @GetMapping("/{memberId}/comments")
+    public ResponseEntity<MemberCommentResponseDto> getMemberComments(@PathVariable Long memberId) {
+        return ResponseEntity.ok(commentService.getMemberCommentList(memberId));
     }
 }

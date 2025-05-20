@@ -2,8 +2,8 @@ package efub.assignment.community.member.service;
 
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.domain.MemberStatus;
-import efub.assignment.community.member.dto.MemberRequestDto;
-import efub.assignment.community.member.dto.MemberResponseDto;
+import efub.assignment.community.member.dto.request.MemberRequestDto;
+import efub.assignment.community.member.dto.response.MemberResponseDto;
 import efub.assignment.community.member.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package efub.assignment.community.handler;
 
-import efub.assignment.community.member.dto.ErrorResponseDto;
+import efub.assignment.community.member.dto.response.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
