@@ -5,6 +5,7 @@ import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.messageRoom.domain.MessageRoom;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,22 +19,26 @@ public class Message extends BaseEntity {
     private Long messageId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "messageRoom_id", nullable = false)
+    @JoinColumn(name = "message_room_id", nullable = false)
     private MessageRoom messageRoom;
 
     // 보낸사람
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id", nullable = false)
     private Member sender;
 
     // 쪽지 내용
     @Column(nullable = false)
     private String content;
 
+    public void setMessageRoom(MessageRoom messageRoom) {
+        this.messageRoom = messageRoom;
+    }
+
+    @Builder
     public Message(MessageRoom messageRoom, Member sender, String content) {
         this.messageRoom = messageRoom;
         this.sender = sender;
         this.content = content;
     }
-
 }

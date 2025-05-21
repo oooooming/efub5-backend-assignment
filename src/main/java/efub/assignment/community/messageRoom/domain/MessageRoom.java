@@ -23,12 +23,12 @@ public class MessageRoom extends BaseEntity {
     private Long messageRoomId;
 
     // 처음 생성한 사람
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creater_id", nullable = false)
     private Member creater;
 
     // 처음 받은 사람
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id", nullable = false)
     private Member receiver;
 
@@ -43,6 +43,12 @@ public class MessageRoom extends BaseEntity {
     @OneToMany(mappedBy = "messageRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
+    // 양방향 설정 (안정성)
+    public void addMessage(Message message) {
+        messages.add(message);
+        message.setMessageRoom(this);
+    }
+
     @Builder
     public MessageRoom(Member creater, Member receiver, String content, Post post, List<Message> messages) {
         this.creater = creater;
@@ -51,5 +57,4 @@ public class MessageRoom extends BaseEntity {
         this.post = post;
         this.messages = messages != null ? messages : new ArrayList<>();
     }
-
 }
