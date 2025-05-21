@@ -11,17 +11,12 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class MessageRoomCreateResponseDto {
-    @NotNull
+
     private Long messageRoomId;
-    @NotNull
     private Long createrId;
-    @NotNull
     private Long receiverId;
-    @NotBlank
     private String content;
-    @NotNull
     private Long postId;
-    @NotNull
     private LocalDateTime createdAt;
 
     public static MessageRoomCreateResponseDto from(MessageRoom messageRoom) {

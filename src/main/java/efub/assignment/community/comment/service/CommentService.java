@@ -1,5 +1,6 @@
 package efub.assignment.community.comment.service;
 
+import efub.assignment.community.board.domain.Board;
 import efub.assignment.community.comment.domain.Comment;
 import efub.assignment.community.comment.domain.CommentHeart;
 import efub.assignment.community.comment.dto.request.CommentCreateRequestDto;
@@ -13,6 +14,8 @@ import efub.assignment.community.comment.repository.CommentHeartRepository;
 import efub.assignment.community.comment.repository.CommentRepository;
 import efub.assignment.community.member.domain.Member;
 import efub.assignment.community.member.repository.MemberRepository;
+import efub.assignment.community.notification.domain.Notification;
+import efub.assignment.community.notification.repository.NotificationRepository;
 import efub.assignment.community.post.domain.Post;
 import efub.assignment.community.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final CommentHeartRepository commentHeartRepository;
+    private final NotificationRepository notificationRepository;
 
     // 댓글 생성
     @Transactional
@@ -41,6 +45,18 @@ public class CommentService {
 
         Comment newComment = requestDto.toEntity(post, commenter);
         commentRepository.save(newComment);
+
+        // 게시글 작성자에게 알림 생성
+        Board board = newComment.getPost().getBoard();
+        Member boardOwner = board.getOwner();
+
+        Notification notification = Notification.builder()
+                .board(board)
+                .comment(newComment)
+                .member(boardOwner)
+                .build();
+
+        notificationRepository.save(notification);
 
         return CommentResponseDto.from(newComment);
     }
