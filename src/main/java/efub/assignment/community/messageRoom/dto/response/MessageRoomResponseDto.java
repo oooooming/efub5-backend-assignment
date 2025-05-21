@@ -24,7 +24,7 @@ public class MessageRoomResponseDto {
 
         return MessageRoomResponseDto.builder()
                 .messageRoomId(messageRoom.getMessageRoomId())
-                .latestMessage(latestMessage != null ? latestMessage.getContent() : "(대화 없음)")
+                .latestMessage(latestMessage != null ? latestMessage.getContent() : messageRoom.getContent())
                 .latestMessageTime(latestMessage != null ? latestMessage.getCreatedAt() : null)
                 .build();
     }
