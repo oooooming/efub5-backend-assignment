@@ -94,23 +94,52 @@ public class CommentService {
     }
 
     // 댓글 좋아요 생성
+//    @Transactional
+//    public CommentHeartResponseDto createCommentHeart(Long commentId, CommentHeartCreateRequestDto requestDto) {
+//        Comment comment = commentRepository.findByCommentId(commentId)
+//                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+//        Member member = memberRepository.findByMemberId(requestDto.memberId())
+//                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 회원입니다."));
+//
+//        // 중복 좋아요 방지
+//        commentHeartRepository.findByMemberAndComment(member, comment)
+//                .ifPresent(heart -> {
+//                    throw new IllegalStateException("이미 해당 댓글에 좋아요를 눌렀습니다.");
+//                });
+//
+//        CommentHeart commentHeart = requestDto.toEntity(member, comment);
+//        CommentHeart savedCommentHeart = commentHeartRepository.save(commentHeart);
+//
+//        return CommentHeartResponseDto.from(savedCommentHeart);
+//    }
+
+    // 댓글 좋아요 생성 (refactor)
     @Transactional
     public CommentHeartResponseDto createCommentHeart(Long commentId, CommentHeartCreateRequestDto requestDto) {
-        Comment comment = commentRepository.findByCommentId(commentId)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 댓글입니다."));
-        Member member = memberRepository.findByMemberId(requestDto.memberId())
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Comment comment = findComment(commentId);
+        Member member = findMember(requestDto.memberId());
 
-        // 중복 좋아요 방지
+        validateNotAlreadyHearted(comment, member);
+
+        CommentHeart commentHeart = new CommentHeart(comment, member);
+        CommentHeart savedHeart = commentHeartRepository.save(commentHeart);
+
+        return CommentHeartResponseDto.from(savedHeart);
+    }
+
+    private Comment findComment(Long commentId) {
+        return commentRepository.findByCommentId(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+    }
+
+    private Member findMember(Long memberId) {
+        return memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    private void validateNotAlreadyHearted(Comment comment, Member member) {
         commentHeartRepository.findByMemberAndComment(member, comment)
-                .ifPresent(heart -> {
-                    throw new IllegalStateException("이미 해당 댓글에 좋아요를 눌렀습니다.");
-                });
-
-        CommentHeart commentHeart = requestDto.toEntity(member, comment);
-        CommentHeart savedCommentHeart = commentHeartRepository.save(commentHeart);
-
-        return CommentHeartResponseDto.from(savedCommentHeart);
+                .ifPresent(h -> { throw new IllegalStateException("이미 해당 댓글에 좋아요를 눌렀습니다."); });
     }
 
     // 댓글 좋아요 삭제
