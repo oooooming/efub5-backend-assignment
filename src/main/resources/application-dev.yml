@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8
+    username: root
+    password: asdf1234!!
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+  cache:
+    type: redis
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 650f66ae414683a39a179d87b2c84a2e
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+
+# --- JWT 설정 ---
+jwt:
+  secretKey: ${JWT_SECRET_KEY}
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG

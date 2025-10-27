@@ -32,7 +32,7 @@ public class Member extends BaseEntity {
     private String university;
 
     // 닉네임
-    @Column (nullable = false, length = 8)
+    @Column (nullable = false)
     private String nickname;
 
     // 이메일
