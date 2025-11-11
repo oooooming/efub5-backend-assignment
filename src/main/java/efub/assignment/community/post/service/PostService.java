@@ -69,4 +69,12 @@ public class PostService {
     public void deletePost(Long postId) {
         postRepository.deleteByPostId(postId);
     }
+
+    // 게시글 검색
+    @Transactional(readOnly = true)
+    public List<PostResponseDto> searchPost(String keyword, String writer, String boardName){
+        return postRepository.search(keyword, writer, boardName).stream()
+                .map(PostResponseDto::from)
+                .toList();
+    }
 }

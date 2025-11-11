@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts")
@@ -54,5 +56,15 @@ public class PostController {
     public ResponseEntity<String> deletePost(@PathVariable Long postId) {
         postService.deletePost(postId);
         return ResponseEntity.ok("성공적으로 게시글 삭제가 완료되었습니다.");
+    }
+
+    // 게시글 검색
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponseDto>> searchPost(
+            @RequestParam(value = "keyword") String keyword,
+            @RequestParam(value = "writer") String writer,
+            @RequestParam(value = "board") String boardName
+    ){
+        return ResponseEntity.ok(postService.searchPost(keyword, writer, boardName));
     }
 }
